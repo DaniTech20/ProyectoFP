@@ -1,0 +1,265 @@
+/**********************************************************************************
+				PROYECTO FINAL FUNDAMENTOS DE PROGRAMACIÓN
+				
+	Tema: Bitacora Digital de Vuelo
+	EQUIPO 06
+	INTEGRANTES: Erick Daniel Sanchez Rojas y Eduardo Reyes Olvera
+ ***********************************************************************************/
+
+//librerias de c/c++
+#include<stdio.h>
+#include<stdlib.h>
+#include<conio.h>
+#include<math.h>
+#include<windows.h>
+#include<string.h>
+
+/************************* MACROS LOG-IN *****************************/
+#define TECLA_ENTER 13
+#define TECLA_BACKSPACE 8
+#define LONGITUD 10
+#define MAX_INTENTOS 3
+#define NUMERO_USUARIOS 5
+
+
+//declaracion de funciones
+void portada (void);
+void acceso (void);
+int menu1 (void);
+int menu2 (void);
+int menu3 (int op2);
+
+int main(){
+system("color f9");
+//decalaracion de variables locales
+int op1,op2;
+
+portada();
+system("cls");
+
+acceso();
+
+do{
+system("cls");
+op1=menu1();
+switch(op1){
+	case 1:
+		do{
+		system("cls");
+		op2=menu2();
+		//Aqui debo poner mi switch con todos los casos de este menu 2
+		switch(op2){
+			case 1:
+				printf("Aqui voy a poner que es una bitacora de vuelo\n");
+			break;
+			case 2:
+				printf("Aqui voy a poner Concepto de viento, rumbo y velocidad del avion\n");
+			break;
+			case 3:
+				printf("Aqui voy a poner tipos de velocidades\n");
+			break;
+			case 4:
+				printf("Aqui voy a poner correccion de deriva\n");
+			break;
+			case 5:
+				printf("Aqui voy a poner correccion de ruta\n");
+			break;
+			case 6:
+				printf("Aqui voy a poner gasto de combustible\n");
+			break;
+			case 7:
+				printf("saliendo del menu 2");
+				break;
+		}
+		system("pause");
+		}while(op2!=7);
+		
+		break;
+		
+	case 2:
+		break;
+		
+	case 3:
+		system("cls");
+		system("color fc");
+		gotoxy(8,3);printf("Saliendo del programa...\n\n");Beep(783,100);Beep(783,100);Beep(783,100);
+		//exit(0);
+		break;
+}	
+}while(op1!=3);
+
+
+
+printf("\n\n");
+system("pause");
+return 0;
+}
+
+//Impresion de portada
+void portada (void){
+gotoxy(48,3); printf("%c BIDI - 06 %c",174,175);	
+	gotoxy(8,5);printf("                     ******************* "); gotoxy(60,5);printf("*******************"); Beep(523,100); Sleep(300);
+	gotoxy(8,6);printf("   ************************************ "); gotoxy(60,6);printf(" **************************************"); Beep(523,100); Sleep(300);
+	gotoxy(8,7);printf("************************************** "); gotoxy(60,7);printf("  *****************************************"); Beep(523,100); Sleep(300);
+	gotoxy(8,8);printf("************************************** "); gotoxy(60,8);printf("  *****************************************"); Beep(523,100); Sleep(300);
+	gotoxy(8,9);printf("   ************************************  "); gotoxy(60,9);printf(" **************************************"); Beep(523,100); Sleep(300);
+	gotoxy(8,10);printf("                     ******************* "); gotoxy(60,10);printf("*******************"); Beep(523,100);
+	
+gotoxy(39,12); printf("%c B I T A C O R A  D E  V U E L O %c",174,175);	
+Sleep(900);
+}
+
+//Acceso por usuario y contraseña
+void acceso (void){
+	char usuario[LONGITUD];
+	char clave[LONGITUD];
+	int intento = 0;
+	int ingresa = 0;
+	char caracter;
+	int i = 0;
+    int j = 0;
+    int c=3;
+	
+	char usuarios[NUMERO_USUARIOS][LONGITUD] = {"eduardo", "daniel", "esther", "user", "user"};
+    char claves[NUMERO_USUARIOS][LONGITUD] = {"123", "123", "123", "123", "123"};
+	
+		do {
+		system("color f9");
+		i = 0;
+		system("cls");
+		printf("\n\t----------------------------------\n");
+		printf("\t\tACCESO DE USUARIOS");
+		printf("\n\t----------------------------------\n");
+		printf("\t\t\t\t\tTe quedan %d intentos",c);
+		c--;
+		printf("\n\tUSUARIO: ");
+		gets(usuario);
+		printf("\tCLAVE: ");
+		while (caracter = getch()) {
+			if (caracter == TECLA_ENTER) {
+				clave[i] = '\0';  //\0 : finaliza cadena de caracteres
+				break;
+				
+			} else if (caracter == TECLA_BACKSPACE) {
+				if (i > 0) {
+					i--;
+					printf("\b \b"); //\b : borra asteriscos
+				}
+				
+			} else {
+				if (i < LONGITUD) {
+					printf("*");
+					clave[i] = caracter;
+					i++;
+				}
+			}
+		}
+		
+        //El usuario y clave debe coincidir con alguno de los que se encuentran en el arreglo
+        for(j = 0; j < NUMERO_USUARIOS; ++j) {
+            if(strcmp(usuario, usuarios[j]) == 0 && strcmp(clave, claves[j]) == 0) { //strcmp : compara cadenas de caracteres, devuelve 0 si son iguales
+                ingresa = 1;
+                break;
+                
+            }
+        }
+
+        if(ingresa == 0) {
+        	system("cls");
+        	system("color fc");
+            printf("\n\n\t\t\aCredenciales invalidas\n");
+            intento++;
+            getchar();
+        }
+		
+		
+	}while(intento < MAX_INTENTOS && ingresa == 0);
+	
+	if (ingresa == 1) {
+		int carga=20;
+		printf("\n\n\t\tINICIANDO SISTEMA\n");
+		int p=20;
+		do{
+			gotoxy(p,11); printf("%c",219); Beep(523,100); Sleep(200);
+			p+=2;
+			gotoxy(23,12); printf("%d%%",carga);
+			carga+=20;
+		}while(carga<=100);
+		
+		Sleep(1000);
+
+	}else{
+		system("color fc");
+		printf("\tAlcanzaste el numero maximo de intentos, saliendo...\n"); Beep(783,100);Beep(783,100);Beep(783,100);
+		exit(0);
+	}
+	
+}
+
+//Menu 1
+int menu1 (void){
+	int op;
+	printf("\n\t---------------------------------\n");
+	printf("\t\tBITACORA DE VUELO");
+	printf("\n\t---------------------------------\n");
+	
+	printf("\n 1. Conceptos basicos de Navegacion");
+	printf("\n 2. Iniciar Vuelo");
+	printf("\n 3. Salir");
+	
+	printf("\n\n\t\tIngresa la opcion: "); scanf("%d",&op);
+	
+	while(!(op>=1 && op<=3)){
+	system("color fc");
+	printf("\n\t\aOpcion invalida");
+	printf("\n\tIngresa la opcion: "); scanf("%d",&op);	
+	}
+	
+	return op;
+}
+
+//Menu 2
+int menu2 (void){
+	int op2;
+	
+	printf("\n\t------------------------------------------------\n");
+	printf("\t\tCONCEPTOS BASICOS DE NAVEGACION");
+	printf("\n\t------------------------------------------------\n");
+	printf("\n 1. %cQue es una bitacora de vuelo?",168);
+	printf("\n 2. Concepto de viento, rumbo y velocidad del avion");
+	printf("\n 3. Tipos de velocidades");
+	printf("\n 4. Correccion de deriva");
+	printf("\n 5. Correccion de ruta");
+	printf("\n 6. Gasto de combustible");
+	printf("\n 7. %c%c REGRESAR",174,174);
+	printf("\n 8.    SALIR %c%c",175,175);
+	printf("\n\n\t\tIngresa tu opcion: "); scanf("%d",&op2);
+	while(op2<1 || op2>8){
+		printf("\nOpcion invalida, intentalo de nuevo");
+		printf("\n\n\t\tIngresa tu opcion: "); scanf("%d",&op2);
+	}
+	
+	return op2;
+}
+
+//Menu 3
+int menu3 (int op2){
+		switch(op2){
+		case 1:
+			break;
+		case 2:
+			break;
+		case 3:
+			break;
+		case 4:
+			break;
+		case 5:
+			break;
+		case 6:
+			break;
+		case 7:
+			break;
+		case 8:
+			break;
+	}		
+}
